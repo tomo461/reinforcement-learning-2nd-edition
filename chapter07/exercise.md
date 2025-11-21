@@ -10,6 +10,7 @@ $n$ ステップ誤差 (7.2) に対しても同様に書けることを示せ。
 #### ● 式 (6.6) 、 (7.2) の再掲
 
 式 (6.6)
+
 $$
 G_{t} - V_t(S_t) = \sum_{k=t}^{T-1} \gamma^{k-t} \delta_k
 \\
@@ -18,6 +19,7 @@ G_{t} - V_t(S_t) = \sum_{k=t}^{T-1} \gamma^{k-t} \delta_k
 $$
 
 式 (7.2)
+
 $$
 \begin{aligned}
 V_{t+n}(S_t) &= V_{t+n-1}(S_t) + \alpha \left[
@@ -28,6 +30,7 @@ $$
 
 #### ● 証明
 $n$ ステップ誤差を展開すると、
+
 $$
 \begin{aligned}
 G_{t:t+n} - V_{t+n-1}(S_t)
@@ -66,11 +69,10 @@ G_{t:t+n} - V_{t+n-1}(S_t)
 \right)
 \\
 &= \sum_{k=t}^{t+n-1} \gamma^{k-t} \delta_k
-
 \end{aligned}
 $$
 
-したがって、$n$ ステップ誤差は TD 誤差の総和として次のように書ける。
+したがって、 $n$ ステップ誤差は TD 誤差の総和として次のように書ける。
 
 $$
 G_{t:t+n} - V_{t+n-1}(S_t) = \sum_{k=t}^{t+n-1} \gamma^{k-t} \delta_k
@@ -85,15 +87,17 @@ $n$-step TD で、もし (7.2) の TD 誤差の代わりに“TD 誤差の和（
 ## 回答
 
 式 (7.2):
+
 $$
 \begin{aligned}
 V_{t+n}(S_t) &= V_{t+n-1}(S_t) + \alpha \left[
-  G_{t:t+n} - V_{t+n-1}(S_t)
+G_{t:t+n} - V_{t+n-1}(S_t)
 \right], \quad 0 \leq t < T
 \end{aligned}
 $$
 
-もし $V$ がエピソード内で固定されている場合、前問の結果より、$n$-step TD は次のように書ける。
+もし $V$ がエピソード内で固定されている場合、前問の結果より、 $n$-step TD は次のように書ける。
+
 $$
 G_{t:t+n} - V_{t+n-1}(S_t) = \sum_{k=t}^{t+n-1} \gamma^{k-t} \delta_k
 $$
@@ -111,7 +115,7 @@ See exercise_7_2_experiment.py
 # Exercise 7.3
 
 1. なぜ本章では 5-state ではなく 19-state の Random Walk を使ったのか？
-2. 5-state のような小さな問題では、$n$ によって有効性が変わるか？
+2. 5-state のような小さな問題では、 $n$ によって有効性が変わるか？
 3. 左側の報酬を 0 -> -1 に変えたことは、最良な $n$ の値に影響を与えるか？
 
 ## 回答
@@ -122,20 +126,21 @@ See exercise_7_2_experiment.py
 
 $n$ の違いによる性能差を観察するためには、エピソード長が十分に長いことが望ましい。
 
-ちなみに、$n=1$ はTD(0) に対応し、$n$ がエピソード長に近づくほどモンテカルロ法に近づく。
+ちなみに、 $n=1$ はTD(0) に対応し、 $n$ がエピソード長に近づくほどモンテカルロ法に近づく。
 
 ### ● 2. 小さな問題では n の影響は小さい
-5-state Random Walk のような小さな問題では、エピソード長が短いため、$n$ の違いによる性能差はあまり顕著ではない。
-エピソードが短いため、$n$ を大きくしても、価値関数の更新に与える影響が限定的になるからである。
+5-state Random Walk のような小さな問題では、エピソード長が短いため、 $n$ の違いによる性能差はあまり顕著ではない。
+エピソードが短いため、 $n$ を大きくしても、価値関数の更新に与える影響が限定的になるからである。
 
 ### ● 3. 左側の報酬を -1 に変えても最良な n の値には大きな影響はない
 左側の報酬を 0 から -1 に変えることで、エピソード全体の報酬構造が変わるが、最良な $n$ の値には大きな影響はない。
-なぜなら、$n$ の選択は主にエピソード長と価値関数の更新頻度に依存するため、報酬の具体的な値よりもエピソードの構造が重要だからである。
+なぜなら、 $n$ の選択は主にエピソード長と価値関数の更新頻度に依存するため、報酬の具体的な値よりもエピソードの構造が重要だからである。
 
 
 # Exercise 7.4
 
 Sarsa 法の $n$ ステップ収益 (7.4) が、以下のような新しい TD 誤差の和として書けることを示せ。
+
 $$
 G_{t:t+n} = Q_{t-1}(S_t, A_t) + \sum_{k=t}^{\min(t+n, T)-1} \gamma^{k-t} \big[
   R_{k+1} + \gamma Q_{k}(S_{k+1}, A_{k+1}) - Q_{k-1}(S_k, A_k)
@@ -152,6 +157,7 @@ $$
 
 #### ● 証明
 $n$ ステップ収益を展開すると、
+
 $$
 \begin{aligned}
 G_{t:t+n}
@@ -162,11 +168,13 @@ G_{t:t+n}
 $$
 
 TD 誤差を次のように定義する。
+
 $$
 \delta_k = R_{k+1} + \gamma Q_{k}(S_{k+1}, A_{k+1}) - Q_{k-1}(S_k, A_k)
 $$
 
 差分を考えると、
+
 $$
 \begin{aligned}
 G_{t:t+n} - Q_{t-1}(S_t, A_t)
@@ -196,7 +204,8 @@ G_{t:t+n} - Q_{t-1}(S_t, A_t)
 \end{aligned}
 $$
 
-したがって、$n$ ステップ収益は TD 誤差の総和として次のように書ける。
+したがって、 $n$ ステップ収益は TD 誤差の総和として次のように書ける。
+
 $$
 G_{t:t+n} = Q_{t-1}(S_t, A_t) + \sum_{k=t}^{\min(t+n, T)-1} \gamma^{k-t} \big[
   R_{k+1} + \gamma Q_{k}(S_{k+1}, A_{k+1}) - Q_{k-1}(S_k, A_k)
@@ -212,6 +221,7 @@ Section 7.4 “Per-decision Methods with Control Variates”
 ## 回答
 
 $n$-step 収益 $G_{t:t+n}$ は以下のように定義される。
+
 $$
 \begin{aligned}
 G_{t:h} &= \rho_t \left(R_{t+1} + \gamma G_{t+1:h}
@@ -272,6 +282,7 @@ Loop forever (for each episode):
 
 ## 回答
 式 (7.14) :
+
 $$
 G_{t:h} = R_{t+1} + \gamma \big(
   \rho_{t+1} G_{t+1:h} + \bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
@@ -279,6 +290,7 @@ G_{t:h} = R_{t+1} + \gamma \big(
 $$
 
 示すべきことは、
+
 $$
 \mathbb{E}[G_{t:h}]
 = \mathbb{E}\left[R_{t+1} + \gamma G_{t+1:h}\right]
@@ -287,6 +299,7 @@ $$
 つまり、制御変量の期待値がゼロであることを示せばよい。
 
 まず、(7.14) の期待値を計算する。
+
 $$
 \begin{aligned}
 \mathbb{E}[G_{t:h}]
@@ -296,7 +309,8 @@ $$
 \end{aligned}
 $$
 
-行動は挙動方策 $b$ に従うため、$\rho_{t+1}$ の期待値は次のようになる。
+行動は挙動方策 $b$ に従うため、 $\rho_{t+1}$ の期待値は次のようになる。
+
 $$
 \begin{aligned}
 \mathbb{E}[\rho_{t+1} | S_{t+1}]
@@ -307,6 +321,7 @@ $$
 $$
 
 したがって、制御変量の期待値は次のようになる。
+
 $$
 \begin{aligned}
 \mathbb{E}\left[\bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})\right]
@@ -319,6 +334,7 @@ $$
 $$
 
 ここで、
+
 $$
 \begin{aligned}
 \bar{V}_{h-1}(S_{t+1})
@@ -327,12 +343,15 @@ $$
 &= \mathbb{E}\left[Q_{h-1}(S_{t+1}, A_{t+1})\right]
 \end{aligned}
 $$
+
 であることから、制御変量の期待値はゼロになる。
+
 $$
 \mathbb{E}\left[\bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})\right] = 0
 $$
 
 したがって、式 (7.14) における制御変量は収益の期待値を変えないことが示された。
+
 $$
 \mathbb{E}[G_{t:h}]
 = \mathbb{E}\left[R_{t+1} + \gamma G_{t+1:h}\right]
@@ -422,23 +441,24 @@ Loop forever (for each episode):
 ## 回答
 
 式 (7.13)
+
 $$
 G_{t:h} = \rho_t \left(R_{t+1} + \gamma G_{t+1:h}
 \right) + (1 - \rho_t) V_{h-1}(S_t), \quad t \lt h \lt T
 $$
 
 より、以下を示せばよい。
+
 $$
 G_{t:t+n} - V(S_t) = \sum_{k=t}^{t+n-1} \gamma^{k-t} \rho_{t:k} \delta_k
 $$
 
-ただし、$\rho_{t:k} = \prod_{i=t}^{k} \rho_i$ 、$\delta_k$ は (6.5) の状態ベースの TD 誤差
-$
-\delta_k = R_{k+1} + \gamma V(S_{k+1}) - V(S_k)
-$
+ただし、 $\rho_{t:k} = \prod_{i=t}^{k} \rho_i$ 、 $\delta_k$ は (6.5) の状態ベースの TD 誤差
+$\delta_k = R_{k+1} + \gamma V(S_{k+1}) - V(S_k)$
 である。
 
 (7.13) の両編から $V(S_t)$ を引くと、
+
 $$
 \begin{aligned}
 G_{t:h} - V(S_t)
@@ -451,6 +471,7 @@ G_{t:h} - V(S_t)
 $$
 
 TD 誤差を用いて次のように変形する。
+
 $$
 \begin{aligned}
 G_{t:h} - V(S_t)
@@ -476,7 +497,8 @@ G_{t:h} - V(S_t)
 \end{aligned}
 $$
 
-h に達したとき ($h = t+n$) に、$G_{h:h} = V(S_h)$ であることから、
+h に達したとき ( $h = t+n$ ) に、 $G_{h:h} = V(S_h)$ であることから、
+
 $$
 G_{t:t+n} - V(S_t) = \sum_{k=t}^{t+n-1} \gamma^{k-t} \rho_{t:k} \delta_k
 $$
@@ -489,39 +511,36 @@ $$
 Exercise 7.8 について、以下の場合についても同様に示せ。
 
 1. 行動ベースの off-policy n-step 収益 (7.14):
+
 $$
 G_{t:h} = R_{t+1} + \gamma \big(
   \rho_{t+1} G_{t+1:h} + \bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
 \big)
 $$
 
-2. 期待 Sarsa TD 誤差 (式 (6.9) の括弧内の量) :
+2. 期待 Sarsa TD 誤差 (式 (6.9) の括弧内の量):
+
 $$
 \begin{aligned}
 Q(S_t, A_t)
-&\leftarrow Q(S_t, A_t)
-+ \alpha \left[
-  R_{t+1} + \gamma \mathbf{E}_{\pi}[Q(S_{t+1}, At+1) \mid S_{t+1}] - Q(S_t, A_t)
-\right]
+&\leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \mathbf{E}_{\pi}[Q(S_{t+1}, At+1) \mid S_{t+1}] - Q(S_t, A_t) \right]
 \\
-&\leftarrow Q(S_t, A_t)
-+ \alpha \left[
-  R_{t+1} + \gamma \sum_{a} \pi(a | S_{t+1}) Q(S_{t+1}, a) - Q(S_t, A_t)
-\right]
+&\leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \sum_{a} \pi(a | S_{t+1}) Q(S_{t+1}, a) - Q(S_t, A_t) \right]
 \end{aligned}
 $$
 
 ## 回答
 以下を示せばよい。
+
 $$
 G_{t:h} - Q(S_t, A_t) = \sum_{k=t}^{h-1} \gamma^{k-t} \rho_{t+1:k} \delta_k
 $$
 
-ただし、
-$\rho_{t+1:k} = \prod_{i=t+1}^{k} \rho_i$ 、$\delta_k$ は期待 Sarsa TD 誤差
+ただし、 $\rho_{t+1:k} = \prod_{i=t+1}^{k} \rho_i$ 、 $\delta_k$ は期待 Sarsa TD 誤差
 
 
 (7.14) の両辺から $Q(S_t, A_t)$ を引くと、
+
 $$
 \begin{aligned}
 G_{t:h} - Q(S_t, A_t)
@@ -543,7 +562,8 @@ G_{t:h} - Q(S_t, A_t)
 \end{aligned}
 $$
 
-h に達したとき ($h = t+n$) に、$G_{h:h} = Q(S_h, A_h)$ であることから、
+h に達したとき ( $h = t+n$ ) に、 $G_{h:h} = Q(S_h, A_h)$ であることから、
+
 $$
 G_{t:h} - Q(S_t, A_t) = \sum_{k=t}^{h-1} \gamma^{k-t} \rho_{t+1:k} \delta_k
 $$
@@ -557,6 +577,7 @@ $$
 ## 回答
 
 式 (7.13), (7.2) :
+
 $$
 G_{t:h} = \rho_t \left(R_{t+1} + \gamma G_{t+1:h}
 \right) + (1 - \rho_t) V_{h-1}(S_t), \quad t \lt h \lt T
@@ -569,6 +590,7 @@ V_{t+n}(S_t) = V_{t+n-1}(S_t) + \alpha \left[
 $$
 
 式 (7.1), (7.9) :
+
 $$
 G_{t:t+n} = R_{t+1} + \gamma R_{t+2} + \cdots + \gamma^{n-1} R_{t+n} + \gamma^{n} V_{t+n-1}(S_{t+n})
 \\
@@ -586,11 +608,13 @@ See exercise_7-9_off_policy_prediction.py
 ■ MDP（最小で理解しやすい構造）
 
 状態：
+
 $$
 S = \{ A, B, C \}, \quad C \text{ は終端}
 $$
 
 行動：
+
 $$
 a_1, a_2
 $$
@@ -605,19 +629,22 @@ $$
 
 
 割引率：
+
 $$
 \gamma = 1
 $$
 
 
 ターゲット方策 $\pi$ ：
+
 $$
 \pi(a_1 | A) = 1
 \\
 \pi(a_1 | B) = 1
 $$
 
-挙動方策 $b$ ()：
+挙動方策 $b$ ：
+
 $$
 b(a_1 | S) = 0.1
 \\
@@ -629,10 +656,11 @@ $$
 とすると、以下のの特徴を持つ。
 - $\pi$ は「常に a1 を選ぶ」
 - $b$ は「ほぼ a2 を選ぶ（90%）」
-- importance sampling の分散が大きい ($\rho_t$ が大きくなる可能性)
+- importance sampling の分散が大きい ( $\rho_t$ が大きくなる可能性)
 
 
 真の価値 $V^{\pi}$ は
+
 $$
 V^{\pi}(A) = 2, \quad V^{\pi}(B) = 1
 $$
@@ -652,17 +680,22 @@ See exercise_7-9.py
 # Exercise 7.11
 
 行動価値の推定値を変更しない場合、ツリー・バックアップ収益 (7.16) :
+
 $$
 G_{t:t+n} = R_{t+1} + \gamma \sum_{a \neq A_{t+1}} \pi(a \mid S_{t+1}) Q_{t+n-1}(S_{t+1}, a) + \gamma \pi(A_{t+1} | S_{t+1}) G_{t+1:t+n}
 $$
+
 は、以下のように期待値ベースの TD 誤差の和として厳密に書けることを示せ。
+
 $$
 G_{t:t+n} =  Q(S_t, A_t) + \sum_{k=t}^{\min(t+n-1, T-1)} \delta_k \prod_{i = t+1}^{k} \gamma \pi(A_t \mid S_i)
 $$
-ここで、$\delta_t = R_{t+1} + \gamma \bar{V}(S_{t+1}) - Q(S_t, A_t)$ であり、$\bar{V}(S_{t+1}) = \sum_{a} \pi(a | S_{t+1}) Q(S_{t+1}, a)$ である。
+
+ここで、 $\delta_t = R_{t+1} + \gamma \bar{V}(S_{t+1}) - Q(S_t, A_t)$ であり、 $\bar{V}(S_{t+1}) = \sum_{a} \pi(a | S_{t+1}) Q(S_{t+1}, a)$ である。
 
 ## 回答
 (7.16) の右辺に $Q(S_t, A_t)$ を足して引くと、
+
 $$
 \begin{aligned}
 G_{t:t+n}
@@ -671,6 +704,7 @@ G_{t:t+n}
 $$
 
 TD 誤差を用いて次のように変形する。
+
 $$
 \begin{aligned}
 G_{t:t+n}
@@ -692,7 +726,8 @@ G_{t:t+n}
 \end{aligned}
 $$
 
-h に達したとき ($h = t+n$) に、$G_{h:h} = Q(S_h, A_h)$ であることから、
+h に達したとき ($h = t+n$) に、 $G_{h:h} = Q(S_h, A_h)$ であることから、
+
 $$
 G_{t:t+n} = Q(S_t, A_t) + \sum_{k=t}^{t+n-1} \delta_k \prod_{i = t+1}^{k} \gamma \pi(A_i \mid S_i)
 $$
