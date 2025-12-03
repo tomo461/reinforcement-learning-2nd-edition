@@ -12,13 +12,13 @@
 
 #### 1. 関数近似を用いたモンテカルロ法はどのようなものになるか。
 
-関数近似を伴うオンポリシー制御の文脈（Chapter 10）において、モンテカルロ法は、nステップ・ブートストラップ法の極限として考えることができる。つまり、式(10.5)において、$n \to T$ とした場合である。この場合、エピソードの終了まで待ってから、以下の式で重みベクトル $\bold{w}$ を更新する。
+関数近似を伴うオンポリシー制御の文脈（Chapter 10）において、モンテカルロ法は、nステップ・ブートストラップ法の極限として考えることができる。つまり、式(10.5)において、 $n \to T$ とした場合である。この場合、エピソードの終了まで待ってから、以下の式で重みベクトル $\mathbf{w}$ を更新する。
 
 $$
-\bold{w}_{t+1} = \bold{w}_t + \alpha \left( G_t - \hat{q}(S_t, A_t, \bold{w}_t) \right) \nabla \hat{q}(S_t, A_t, \bold{w}_t)
+\mathbf{w}_{t+1} = \mathbf{w}_t + \alpha \left( G_t - \hat{q}(S_t, A_t, \mathbf{w}_t) \right) \nabla \hat{q}(S_t, A_t, \mathbf{w}_t)
 $$
 
-のように重みベクトル $\bold{w}$ を更新する。ただし、$G_t$ は時刻 $t$ からエピソード終了までの累積報酬:
+のように重みベクトル $\mathbf{w}$ を更新する。ただし、 $G_t$ は時刻 $t$ からエピソード終了までの累積報酬:
 
 $$
 G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots + \gamma^{T-t-1} R_T
@@ -42,19 +42,19 @@ $$
 
 エピソード的擬似勾配1ステップSARSAに対して、次の行動 $A'$ の選択を期待値で置き換えることで、擬似勾配1ステップ期待SARSA法の擬似コードを得る。以下にその擬似コードを示す。
 
-- 入力: 微分可能な行動価値関数パラメータ化 $\hat{q}(s, a, \bold{w}) : S \times A \times R^d \to R$
+- 入力: 微分可能な行動価値関数パラメータ化 $\hat{q}(s, a, \mathbf{w}) : S \times A \times R^d \to R$
 - 方策: $\pi$
 - アルゴリズムパラメータ: ステップサイズ $\alpha \in (0, 1]$ , 小さな値 $\epsilon > 0$ , 整数 $n > 0$
-- 初期化: 価値関数重み $\bold w \in R^d$ を任意に初期化する（例: $\bold w = \bold 0$ ）
+- 初期化: 価値関数重み $\mathbf w \in \mathbb{R}^d$ を任意に初期化する（例: $\mathbf w = \mathbf 0$ ）
 - 各エピソードについて繰り返す:
   - 初期状態 $S \neq \text{terminal}$ を初期化し保存
   - $Q(S,⋅)$ に関するポリシー $\pi$（例: $\epsilon$ -greedy）に従って行動 $A_0$ を選択し保存
   - 時刻ステップ $t = 0, 1, 2, \ldots$ について繰り返す:
     - 行動 $A_t$ を選択し、報酬 $R_{t+1}$ と次の状態 $S_{t+1}$ を観測し保存
-    - $G \leftarrow \sum_{a} \pi(a \mid S_{t+1}) \hat{q}(S_{t+1}, a, \bold{w})$
+    - $G \leftarrow \sum_{a} \pi(a \mid S_{t+1}) \hat{q}(S_{t+1}, a, \mathbf{w})$
     - もし $S_{t+1} \neq \text{terminal}$ ならば
       - $G \leftarrow R_{t+1} + \gamma G$
-    - $\bold{w} \leftarrow \bold{w} + \alpha \left( G - \hat{q}(S_t, A_t, \bold{w}) \right) \nabla \hat{q}(S_t, A_t, \bold{w})$
+    - $\mathbf{w} \leftarrow \mathbf{w} + \alpha \left( G - \hat{q}(S_t, A_t, \mathbf{w}) \right) \nabla \hat{q}(S_t, A_t, \mathbf{w})$
     - もし $S_{t+1} = \text{terminal}$ ならば、次のエピソードへ進む
 
 
@@ -75,19 +75,19 @@ $n$ が大きくなると、更新ターゲットがより長い将来の報酬�
 
 Q学習は off-policy の手法であるため、更新ターゲットは次の状態での最大の行動価値に基づいて計算される。以下に擬似勾配Q学習の差分版の擬似コードを示す。
 
-- 入力: 微分可能な行動価値関数パラメータ化 $\hat{q}(s, a, \bold{w}) : S \times A \times R^d \to R$
+- 入力: 微分可能な行動価値関数パラメータ化 $\hat{q}(s, a, \mathbf{w}) : S \times A \times R^d \to R$
 - アルゴリズムパラメータ: ステップサイズ $\alpha > 0$ , $\beta > 0$
-- 初期化: 価値関数重み $\bold w \in R^d$ を任意に初期化する（例: $\bold w = \bold 0$ ）
-- 初期化: 平均報酬の推定値 $\bar{R} \in R$ を任意に初期化する（例: $\bar{R} = 0$ ）
+- 初期化: 価値関数重み $\mathbf w \in \mathbb{R}^d$ を任意に初期化する（例: $\mathbf w = \mathbf 0$ ）
+- 初期化: 平均報酬の推定値 $\bar{R} \in \mathbb{R}$ を任意に初期化する（例: $\bar{R} = 0$ ）
 - 状態 $S$ と行動 $A$ を初期化
 - 各タイムステップについて繰り返す:
   - 行動 $A$ を実行し、報酬 $R$ と次の状態 $S'$ を観測
-  - $S'$ における最大の行動価値をもつ行動 $A^* = \arg\max_{a} \hat{q}(S', a, \bold{w})$ を選択
-  - $\delta \leftarrow R - \bar{R} + \hat{q}(S', A^*, \bold{w}) - \hat{q}(S, A, \bold{w})$
+  - $S'$ における最大の行動価値をもつ行動 $A^* = \arg\max_{a} \hat{q}(S', a, \mathbf{w})$ を選択
+  - $\delta \leftarrow R - \bar{R} + \hat{q}(S', A^*, \mathbf{w}) - \hat{q}(S, A, \mathbf{w})$
   - $\bar{R} \leftarrow \bar{R} + \beta \ \delta$
-  - $\bold{w} \leftarrow \bold{w} + \alpha \ \delta \nabla \hat{q}(S, A, \bold{w})$
+  - $\mathbf{w} \leftarrow \mathbf{w} + \alpha \ \delta \nabla \hat{q}(S, A, \mathbf{w})$
   - $S \leftarrow S'$
-  - $\hat{q}(S, \dot, \bold{w})$ に関するポリシーに従って新しい行動 $A$ を選択
+  - $\hat{q}(S, \dot, \mathbf{w})$ に関するポリシーに従って新しい行動 $A$ を選択
 
 
 # Exercise 10.5
@@ -98,13 +98,13 @@ Q学習は off-policy の手法であるため、更新ターゲットは次の�
 
 差分版のTD(0)法を定義するためには、
 
-1. 状態価値の重みベクトル $\bold{w}$ の更新式
+1. 状態価値の重みベクトル $\mathbf{w}$ の更新式
 2. 平均報酬 $\bar{R}$ の更新式
 
 が必要であり、式(10.10)を用いてそれぞれ以下のように表される。
 
 $$
-\bold{w}_{t+1} = \bold{w}_t + \alpha \delta_t \nabla \hat{v}(S_t, \bold{w}_t)
+\mathbf{w}_{t+1} = \mathbf{w}_t + \alpha \delta_t \nabla \hat{v}(S_t, \mathbf{w}_t)
 $$
 
 $$
@@ -122,7 +122,10 @@ $$
 この場合、差分収益(10.9)は極限が存在しないため明確に定義できない。これを直すために、代わりに状態価値を
 
 $$
-v_\pi(s) = \lim_{\gamma \to 1} \lim_{h \to \infty} \sum_{t=0}^{h} \gamma^t \big( \mathbb{E}_\pi [R_{t+1} \mid S_0 = s] - r(\pi) \big) \tag{10.13}
+\begin{align*}
+v_\pi(s) &= \lim_{\gamma \to 1} \lim_{h \to \infty} \sum_{t=0}^{h} \gamma^t \big( \mathbb{E}_\pi [R_{t+1} \mid S_0 = s] - r(\pi) \big) \\
+&\quad \tag{10.13}
+\end{align*}
 $$
 
 と定義できるかもしれない。この定義の下ではAとBの状態価値はどうなるだろうか。
@@ -144,7 +147,7 @@ $$
 この $r(\pi) = \frac{1}{2}$ を用いて、式(10.13) に基づいて各状態の価値を計算する。
 
 #### 状態 A:
-状態 A からの報酬系列は +1,0,+1,0,… であるため、差分の系列は $+\frac{1}{2}, -\frac{1}{2}, +\frac{1}{2}, -\frac{1}{2}, ... $ となる。したがって、状態 A の価値は
+状態 A からの報酬系列は +1,0,+1,0,… であるため、差分の系列は $+ \frac{1}{2}, -\frac{1}{2}, +\frac{1}{2}, -\frac{1}{2}, \dots$ となる。したがって、状態 A の価値は
 
 $$
 \begin{align*}
@@ -153,7 +156,7 @@ v_\pi(A) &= \lim_{\gamma \to 1} \lim_{h \to \infty} \sum_{t=0}^{h} \gamma^t \lef
 \end{align*}
 $$
 
-ここで、無限和の部分は報酬差分の系列 $+\frac{1}{2}, -\frac{1}{2}, +\frac{1}{2}, -\frac{1}{2}, ... $ に $\gamma^t$ を掛けたものの和であるため、
+ここで、無限和の部分は報酬差分の系列 $+ \frac{1}{2}, -\frac{1}{2}, +\frac{1}{2}, -\frac{1}{2}, \dots$ に $\gamma^t$ を掛けたものの和であるため、
 
 $$
 \begin{align*}
@@ -175,7 +178,7 @@ $$
 
 
 #### 状態 B:
-状態 B からの報酬系列は 0,+1,0,+1,… であるため、差分の系列は $-\frac{1}{2}, +\frac{1}{2}, -\frac{1}{2}, +\frac{1}{2}, ... $ となる。したがって、状態 B の価値は
+状態 B からの報酬系列は 0,+1,0,+1,… であるため、差分の系列は $- \frac{1}{2}, +\frac{1}{2}, -\frac{1}{2}, +\frac{1}{2}, \dots$ となる。したがって、状態 B の価値は
 
 $$
 \begin{align*}
@@ -195,7 +198,7 @@ $$
 以下の特性を持つマルコフ報酬課程(MRP)を考える。
 
 - 3つの状態 $A$, $B$, $C$ が環状につながっている。
-- 状態遷移は決定的であり、$A \to B \to C \to A$ の順に遷移する。
+- 状態遷移は決定的であり、 $A \to B \to C \to A$ の順に遷移する。
 - $A$ に到達した時に報酬 +1 を得る。その他の状態では報酬は0である。
 
 3つの状態の差分価値 $v_\pi(s)$ を式(10.13)を用いて計算せよ。
@@ -208,7 +211,7 @@ $$
 
 #### 状態 $A$:
 
-差分の系列は、 $-\frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, -\frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, \ldots$ となり、周期3で $-\frac{1}{3}, -\frac{1}{3}, \frac{2}{3}$ が繰り返される。 $v_\pi(A)$ はこの系列を用いた無限和の極限として計算される。
+差分の系列は、 $- \frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, -\frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, \dots$ となり、周期3で $- \frac{1}{3}, -\frac{1}{3}, \frac{2}{3}$ が繰り返される。 $v_\pi(A)$ はこの系列を用いた無限和の極限として計算される。
 
 $$
 \begin{aligned}
@@ -242,7 +245,7 @@ $$
 
 #### 状態 $B$:
 
-差分の系列は、 $-\frac{1}{3}, \frac{2}{3}, -\frac{1}{3}, \ldots$ となる。 $v_\pi(A)$ と同様に $v_\pi(B)$ を計算する。
+差分の系列は、 $- \frac{1}{3}, \frac{2}{3}, -\frac{1}{3}, \ldots$ となる。 $v_\pi(A)$ と同様に $v_\pi(B)$ を計算する。
 
 $$
 \begin{aligned}
@@ -292,23 +295,23 @@ $$
 
 #### 1. $R_{t+1} - \bar R_{t}$ の誤差系列はどうなるか。
 
-状態Aから始めると、報酬系列は 0, 0, 1, 0, 0, 1, ... となる。平均報酬 $\bar{R}_t$ が真の値 $\frac{1}{3}$ に収束していると仮定すると、誤差系列は $-\frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, -\frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, ...$ となる。
+状態Aから始めると、報酬系列は 0, 0, 1, 0, 0, 1, ... となる。平均報酬 $\bar{R}_t$ が真の値 $\frac{1}{3}$ に収束していると仮定すると、誤差系列は $- \frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, -\frac{1}{3}, -\frac{1}{3}, \frac{2}{3}, ...$ となる。
 
 #### 2. $\delta_t$ の誤差（式10.10を使用）の系列はどうなるか。
 
-問題文の下で、　$\delta_t$ は以下のように定義される。
+問題文の下で、 $\delta_t$ は以下のように定義される。
 
 $$
 \delta_t = R_{t+1} - \bar{R} + v(S_{t+1}) - v(S_t)
 $$
 
-状態Aから始めると、差分価値は $v_\pi(A) = -\frac{1}{3}$、$v_\pi(B) = 0$、$v_\pi(C) = \frac{1}{3}$ である。したがって、$\delta_t$ の誤差系列は以下のようになる。
+状態Aから始めると、差分価値は $v_\pi(A) = -\frac{1}{3}$, $v_\pi(B) = 0$, $v_\pi(C) = \frac{1}{3}$ である。したがって、 $\delta_t$ の誤差系列は以下のようになる。
 
 - 状態Aから状態Bへの遷移: $\delta_t = R_{t+1} - \bar R + v_\pi(B) - v_\pi(A) = 0 - \frac{1}{3} + 0 - (-\frac{1}{3}) = 0$
 - 状態Bから状態Cへの遷移: $\delta_t = R_{t+1} - \bar R + v_\pi(C) - v_\pi(B) = 0 - \frac{1}{3} + \frac{1}{3} - 0 = 0$
 - 状態Cから状態Aへの遷移: $\delta_t = R_{t+1} - \bar R + v_\pi(A) - v_\pi(C) = 1 - \frac{1}{3} + (-\frac{1}{3}) - \frac{1}{3} = 0$
 
-したがって、$\delta_t$ の誤差系列は $0, 0, 0, 0, 0, 0, ...$ となる。
+したがって、 $\delta_t$ の誤差系列は $0, 0, 0, 0, 0, 0, ...$ となる。
 
 #### 3. どちらの誤差系列が、価値関数を真の差分価値に近づけるために適切か。その理由は何か。
 
