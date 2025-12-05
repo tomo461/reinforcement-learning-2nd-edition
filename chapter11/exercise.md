@@ -44,15 +44,18 @@ $$
 
 nステップ $Q(\sigma)$ 法（式7.11, 7.18）を擬似勾配法の形式に変換せよ。エピソード的タスクと連続的タスクそれぞれの場合の定義を与えよ。
 
+## 回答
+
+式7.11、7.18はそれぞれ以下である。
+
+
 $$
 \begin{align*}
-Q_{t+n}(S_t, A_t) &\doteq Q_{t+n-1}(S_t, A_t) + \alpha \rho_{t+1:t+n}  \left[ G_{t:t+n} - Q_{t+n-1}(S_t, A_t) \right] \tag{7.11} \\
+Q_{t+n}(S_t, A_t) &\doteq Q_{t+n-1}(S_t, A_t) + \alpha \rho_{t+1:t+n}  \left[ G_{t:t+n} - Q_{t+n-1}(S_t, A_t) \right] \\
 G_{t:t+n} &\doteq R_{t+1} + \gamma \left[ \sigma_{t+1} \rho_{t+1} + (1 - \sigma_{t+1}) \pi(A_{t+1} \mid S_{t+1}) \right] \left[ G_{t+1:h} - Q_{h-1}(S_{t+1}, A_{t+1}) \right] \\
-&\quad + \gamma \overline{V}_{h-1}(S_{t+1}) \tag{7.18}
+&\quad + \gamma \overline{V}_{h-1}(S_{t+1})
 \end{align*}
 $$
-
-## 回答
 
 $\mathbf{w}$ を行動価値関数 $\hat{q}(s, a, \mathbf{w})$ を近似するための重みベクトルとすると、nステップ $Q(\sigma)$ 法の疑似勾配形法は以下のように表される。
 
@@ -110,14 +113,16 @@ code: [exercise_11-3.py](exercise_11-3.py)
 
 式11.24を証明せよ。
 
+## 回答
+
+証明すべき式11.24は以下である。
+
 $$
 \begin{align*}
 \overline{RE}(\mathbf{w}) &= \mathbb{E}\left[ \left( G_t - \hat{v}(S_t, \mathbf{w}) \right)^2 \right] \\
 &= \overline{VE}(\mathbf{w}) + \mathbb{E}\left[ \left(G_t - v_{\pi}(S_t) \right)^2 \right]
-\end{align*} \tag{11.24}
+\end{align*}
 $$
-
-## 回答
 
 $\overline{RE}(\mathbf{w})$ を状態 $S_t$ の分布 $\mu(s)$ に関する期待値として書くと、
 
