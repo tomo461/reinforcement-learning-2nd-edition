@@ -31,11 +31,11 @@ $$
 
 $t+n \geq T$ の場合、 $G_{t:t+n}$ はエピソードの終了までの全割引報酬の合計 $G_{t}$ となる。
 
-連続的タスクにおける収益 $G_{t:t+n}$ は、平均報酬 $\bar{R}$ を使って以下のように定義される。
+連続的タスクにおける収益 $G_{t:t+n}$ は、平均報酬 $\overline{R}$ を使って以下のように定義される。
 
 $$
 \begin{align*}
-G_{t:t+n} &\doteq R_{t+1} - \bar{R}_{t} + R_{t+2} - \bar{R}_{t+1} + \cdots + R_{t+n} - \bar{R}_{t+n-1} + \hat{v}(S_{t+n}, \mathbf{w}_{t+n-1})
+G_{t:t+n} &\doteq R_{t+1} - \overline{R}_{t} + R_{t+2} - \overline{R}_{t+1} + \cdots + R_{t+n} - \overline{R}_{t+n-1} + \hat{v}(S_{t+n}, \mathbf{w}_{t+n-1})
 \end{align*}
 $$
 
@@ -48,7 +48,7 @@ $$
 \begin{align*}
 Q_{t+n}(S_t, A_t) &\doteq Q_{t+n-1}(S_t, A_t) + \alpha \rho_{t+1:t+n}  \left[ G_{t:t+n} - Q_{t+n-1}(S_t, A_t) \right] \tag{7.11} \\
 G_{t:t+n} &\doteq R_{t+1} + \gamma \left[ \sigma_{t+1} \rho_{t+1} + (1 - \sigma_{t+1}) \pi(A_{t+1} \mid S_{t+1}) \right] \left[ G_{t+1:h} - Q_{h-1}(S_{t+1}, A_{t+1}) \right] \\
-&\quad + \gamma \bar{V}_{h-1}(S_{t+1}) \tag{7.18}
+&\quad + \gamma \overline{V}_{h-1}(S_{t+1}) \tag{7.18}
 \end{align*}
 $$
 
@@ -67,7 +67,7 @@ $$
 $$
 \begin{align*}
 G_{t:t+n} &\doteq R_{t+1} + \gamma \left[ \sigma_{t+1} \rho_{t+1} + (1 - \sigma_{t+1}) \pi(A_{t+1} \mid S_{t+1}) \right] \left[ G_{t+1:h} - \hat{q}_{h-1}(S_{t+1}, A_{t+1}, \mathbf{w}_{h-1}) \right] \\
-&\quad + \gamma \bar{V}_{h-1}(S_{t+1}) \\
+&\quad + \gamma \overline{V}_{h-1}(S_{t+1}) \\
 &= R_{t+1} + \gamma \left[ \sigma_{t+1} \rho_{t+1} + (1 - \sigma_{t+1}) \pi(A_{t+1} \mid S_{t+1}) \right] \left[ G_{t+1:h} - \hat{q}_{h-1}(S_{t+1}, A_{t+1}, \mathbf{w}_{h-1}) \right] \\
 &\quad + \gamma \sum_{a} \pi(a|S_{t+1}) \hat{q}(S_{t+1}, a, \mathbf{w}_{h-1})
 \end{align*}
@@ -75,11 +75,11 @@ $$
 
 $t+n \geq T$ の場合、 $G_{t:t+n}$ はエピソードの終了までの全割引報酬の合計 $G_{t}$ となる。
 
-連続的タスクにおける収益 $G_{t:t+n}$ は、平均報酬 $\bar{R}$ を使って以下のように定義される。
+連続的タスクにおける収益 $G_{t:t+n}$ は、平均報酬 $\overline{R}$ を使って以下のように定義される。
 
 $$
 \begin{align*}
-G_{t:t+n} &\doteq R_{t+1} - \bar{R}_{t} + \left[ \sigma_{t+1} \rho_{t+1} + (1 - \sigma_{t+1}) \pi(A_{t+1} \mid S_{t+1}) \right] \left[ G_{t+1:h} - \hat{q}_{h-1}(S_{t+1}, A_{t+1}, \mathbf{w}_{h-1}) \right] \\
+G_{t:t+n} &\doteq R_{t+1} - \overline{R}_{t} + \left[ \sigma_{t+1} \rho_{t+1} + (1 - \sigma_{t+1}) \pi(A_{t+1} \mid S_{t+1}) \right] \left[ G_{t+1:h} - \hat{q}_{h-1}(S_{t+1}, A_{t+1}, \mathbf{w}_{h-1}) \right] \\
 &\quad + \sum_{a} \pi(a|S_{t+1}) \hat{q}(S_{t+1}, a, \mathbf{w}_{h-1})
 \end{align*}
 $$

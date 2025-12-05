@@ -285,7 +285,7 @@ Loop forever (for each episode):
 
 $$
 G_{t:h} = R_{t+1} + \gamma \big(
-  \rho_{t+1} G_{t+1:h} + \bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
+  \rho_{t+1} G_{t+1:h} + \overline{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
 \big)
 $$
 
@@ -304,7 +304,7 @@ $$
 \begin{aligned}
 \mathbb{E}[G_{t:h}]
 &= \mathbb{E}\left[R_{t+1} + \gamma \big(
-  \rho_{t+1} G_{t+1:h} + \bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
+  \rho_{t+1} G_{t+1:h} + \overline{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
 \big)\right]
 \end{aligned}
 $$
@@ -324,12 +324,12 @@ $$
 
 $$
 \begin{aligned}
-\mathbb{E}\left[\bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})\right]
-&= \mathbb{E}\left[\bar{V}_{h-1}(S_{t+1})\right] - \mathbb{E}\left[\rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})\right]
+\mathbb{E}\left[\overline{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})\right]
+&= \mathbb{E}\left[\overline{V}_{h-1}(S_{t+1})\right] - \mathbb{E}\left[\rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})\right]
 \\
-&= \mathbb{E}\left[\bar{V}_{h-1}(S_{t+1})\right] - \mathbb{E}\left[\mathbb{E}[\rho_{t+1} | S_{t+1}] Q_{h-1}(S_{t+1}, A_{t+1})\right]
+&= \mathbb{E}\left[\overline{V}_{h-1}(S_{t+1})\right] - \mathbb{E}\left[\mathbb{E}[\rho_{t+1} | S_{t+1}] Q_{h-1}(S_{t+1}, A_{t+1})\right]
 \\
-&= \mathbb{E}\left[\bar{V}_{h-1}(S_{t+1})\right] - \mathbb{E}\left[Q_{h-1}(S_{t+1}, A_{t+1})\right]
+&= \mathbb{E}\left[\overline{V}_{h-1}(S_{t+1})\right] - \mathbb{E}\left[Q_{h-1}(S_{t+1}, A_{t+1})\right]
 \end{aligned}
 $$
 
@@ -337,7 +337,7 @@ $$
 
 $$
 \begin{aligned}
-\bar{V}_{h-1}(S_{t+1})
+\overline{V}_{h-1}(S_{t+1})
 &= \sum_{a} \pi(a | S_{t+1}) Q_{h-1}(S_{t+1}, a)
 \\
 &= \mathbb{E}\left[Q_{h-1}(S_{t+1}, A_{t+1})\right]
@@ -347,7 +347,7 @@ $$
 であることから、制御変量の期待値はゼロになる。
 
 $$
-\mathbb{E}\left[\bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})\right] = 0
+\mathbb{E}\left[\overline{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})\right] = 0
 $$
 
 したがって、式 (7.14) における制御変量は収益の期待値を変えないことが示された。
@@ -514,7 +514,7 @@ Exercise 7.8 について、以下の場合についても同様に示せ。
 
 $$
 G_{t:h} = R_{t+1} + \gamma \big(
-  \rho_{t+1} G_{t+1:h} + \bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
+  \rho_{t+1} G_{t+1:h} + \overline{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
 \big)
 $$
 
@@ -545,10 +545,10 @@ $$
 \begin{aligned}
 G_{t:h} - Q(S_t, A_t)
 &= R_{t+1} + \gamma \big(
-  \rho_{t+1} G_{t+1:h} + \bar{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
+  \rho_{t+1} G_{t+1:h} + \overline{V}_{h-1}(S_{t+1}) - \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
   \big) - Q(S_t, A_t)
 \\
-&= R_{t+1} + \gamma \bar{V}_{h-1}(S_{t+1}) - Q(S_t, A_t) + \gamma \rho_{t+1} G_{t+1:h} - \gamma \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
+&= R_{t+1} + \gamma \overline{V}_{h-1}(S_{t+1}) - Q(S_t, A_t) + \gamma \rho_{t+1} G_{t+1:h} - \gamma \rho_{t+1} Q_{h-1}(S_{t+1}, A_{t+1})
 \\
 &= R_{t+1} + \gamma \sum_{a} \pi(a | S_{t+1}) Q(S_{t+1}, a) - Q(S_t, A_t) + \gamma \rho_{t+1} G_{t+1:h} - \gamma \rho_{t+1} Q(S_{t+1}, A_{t+1})
 \\
@@ -691,7 +691,7 @@ $$
 G_{t:t+n} =  Q(S_t, A_t) + \sum_{k=t}^{\min(t+n-1, T-1)} \delta_k \prod_{i = t+1}^{k} \gamma \pi(A_t \mid S_i)
 $$
 
-ここで、 $\delta_t = R_{t+1} + \gamma \bar{V}(S_{t+1}) - Q(S_t, A_t)$ であり、 $\bar{V}(S_{t+1}) = \sum_{a} \pi(a | S_{t+1}) Q(S_{t+1}, a)$ である。
+ここで、 $\delta_t = R_{t+1} + \gamma \overline{V}(S_{t+1}) - Q(S_t, A_t)$ であり、 $\overline{V}(S_{t+1}) = \sum_{a} \pi(a | S_{t+1}) Q(S_{t+1}, a)$ である。
 
 ## 回答
 (7.16) の右辺に $Q(S_t, A_t)$ を足して引くと、
