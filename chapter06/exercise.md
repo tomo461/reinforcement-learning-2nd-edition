@@ -476,7 +476,7 @@ $$
 $$
 \boxed{
 G_t - Q(S_t,A_t)
-= \sum_{k=t}^{T-1} \gamma^{k-t} \delta_k 
+= \sum_{k=t}^{T-1} \gamma^{k-t} \delta_k
 }
 $$
 
@@ -632,7 +632,7 @@ $$
 これを二重期待 SARSA の更新式に代入すると、 $\epsilon$-greedy ターゲット方策を用いた二重期待 SARSA 更新式が得られる。
 
 
-＃ Exercise 6.14
+# Exercise 6.14
 
 Jack’s Car Rental（例 4.2）を afterstate で再定式化したらどうなるか？なぜ収束が速くなるか？
 
