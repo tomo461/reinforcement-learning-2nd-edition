@@ -4,7 +4,7 @@
 
 例13.1において、右へ進む行動を選択する最適な確率について、グリッドワールドとその動力学に関する知識を用いて、厳密な記号的表現を求めよ。
 
-## 回答
+## 解答
 
 非終端状態は区別できないと定義されているため、ポリシーは以下のように表せる。
 
@@ -95,7 +95,7 @@ v_\pi(S_1) &= \frac{p - 3}{p(1 - p)} - \frac{1}{p} \\
 \end{align*}
 $$
 
-最適な確率 $p$ を求めるために、$v_\pi(S_1)$ を $p$ で微分して $0$ になる点を求める。
+最適な確率 $p$ を求めるために、 $v_\pi(S_1)$ を $p$ で微分して $0$ になる点を求める。
 
 $$
 \frac{d v_\pi(S_1)}{dp} = \frac{2(p - p^2) - (2p - 4)(1 - 2p)}{(p - p^2)^2}
@@ -134,11 +134,11 @@ $$
 177ページの枠内、方策勾配定理(13.5)、方策勾配定理の証明（289ページ）、そしてREINFORCEアルゴリズムの更新式(13.8)に至るまでの流れを一般化せよ。
 このとき、式(13.8)に係数 $\gamma^t$ が加わる形とし、疑似コードで与えられた一般的なアルゴリズムと一致するようにせよ。
 
-## 回答
+## 解答
 
 ### 1. オンポリシー分布（177ページの枠内）の一般化
 
-割引率 $\gamma$ を考慮に入れると、これは状態訪問の期待回数を重み付けする役割を果たす。エピソード的タスクにおいて、 $\gamma < 1$ の場合、$\gamma$ は各ステップでの非終端確率として機能していると解釈できる。
+割引率 $\gamma$ を考慮に入れると、これは状態訪問の期待回数を重み付けする役割を果たす。エピソード的タスクにおいて、 $\gamma < 1$ の場合、 $\gamma$ は各ステップでの非終端確率として機能していると解釈できる。
 
 状態 $s$ でエピソードが開始される確率を $h(s)$ とし、ポリシー $\pi$ に従って状態 $s$ が訪問される「割引された」期待回数を $\eta(s)$ とすると、その再帰関係は以下のように一般化される（式(9.2)に $\gamma$ を導入）。
 
@@ -146,7 +146,7 @@ $$
 \eta(s) = h(s) + \sum_{\bar{s}} \eta(\bar{s}) \gamma \sum_{a} \pi(a|\bar{s}) p(s|\bar{s}, a)
 $$
 
-ここで、$\gamma$ が次の状態 $\bar{s}$ から $s$ への遷移確率を重み付けているため、早く訪問される状態ほど、その後の学習に与える影響が大きくなる。
+ここで、 $\gamma$ が次の状態 $\bar{s}$ から $s$ への遷移確率を重み付けているため、早く訪問される状態ほど、その後の学習に与える影響が大きくなる。
 
 この割引された訪問回数の合計を正規化することで、割引されたオンポリシー分布 $\mu(s)$ が得られる（ソースの式(9.3)に対応）。
 
@@ -172,19 +172,19 @@ $$
 \nabla v_{\pi}(s) = \sum_{a} \left[ \nabla \pi(a|s) q_{\pi}(s, a) + \pi(a|s) \nabla q_{\pi}(s, a) \right]
 $$
 
-ここで、$\nabla q_{\pi}(s, a)$ の展開には $\gamma$ が含まれる（式(3.19)と(3.2)の勾配をとる）。
+ここで、 $\nabla q_{\pi}(s, a)$ の展開には $\gamma$ が含まれる（式(3.19)と(3.2)の勾配をとる）。
 
 $$
 \nabla q_{\pi}(s, a) = \nabla \sum_{s', r} p(s', r | s, a) \left[ r + \gamma v_{\pi}(s') \right] = \sum_{s'} p(s'|s, a) \gamma \nabla v_{\pi}(s')
 $$
 
-これを $\nabla v_{\pi}(s)$ の式に代入し、展開を繰り返すと、$\nabla v_{\pi}(s)$ は、状態 $s$ から到達可能な全ての状態 $x$ における $\gamma^t$ で割引された期待勾配の和として表される（証明の最後のステップに相当）。
+これを $\nabla v_{\pi}(s)$ の式に代入し、展開を繰り返すと、 $\nabla v_{\pi}(s)$ は、状態 $s$ から到達可能な全ての状態 $x$ における $\gamma^t$ で割引された期待勾配の和として表される（証明の最後のステップに相当）。
 
 $$
 \nabla v_{\pi}(s) = \sum_{x} \sum_{t=0}^{\infty} \text{Pr}(s \to x, t, \pi) \gamma^t \sum_{a} \nabla \pi(a|x) q_{\pi}(x, a)
 $$
 
-ここで、$s=S_0$ とすると $\nabla J(\boldsymbol{\theta}) = \nabla v_{\pi}(S_0)$ が得られる。
+ここで、 $s=S_0$ とすると $\nabla J(\boldsymbol{\theta}) = \nabla v_{\pi}(S_0)$ が得られる。
 この式を方策勾配定理に比例する形式に書き直すことができる。
 
 $$
@@ -222,7 +222,7 @@ $$
 
 となることを、定義と基本的な微分法を用いて示せ。
 
-## 回答
+## 解答
 
 方策 $\pi(a|s, \boldsymbol{\theta})$ は、行動優先度
 
@@ -245,13 +245,13 @@ $$
 \end{align*}
 $$
 
-ここで、$h(s, a, \boldsymbol{\theta}) = \boldsymbol{\theta}^T \mathbf{x}(s, a)$ であるため、
+ここで、 $h(s, a, \boldsymbol{\theta}) = \boldsymbol{\theta}^T \mathbf{x}(s, a)$ であるため、
 
 $$
 \nabla h(s, a, \boldsymbol{\theta}) = \mathbf{x}(s, a)
 $$
 
-次に、$\nabla \ln \left( \sum_{b} e^{h(s, b, \boldsymbol{\theta})} \right)$ を計算する。
+次に、 $\nabla \ln \left( \sum_{b} e^{h(s, b, \boldsymbol{\theta})} \right)$ を計算する。
 連鎖率 $\nabla \ln u = \frac{1}{u} \nabla u$ を用いると、
 
 $$
@@ -260,7 +260,7 @@ $$
 \end{align*}
 $$
 
-さらに、$\nabla e^{h(s, b, \boldsymbol{\theta})} = e^{h(s, b, \boldsymbol{\theta})} \nabla h(s, b, \boldsymbol{\theta})$ を用いると、
+さらに、 $\nabla e^{h(s, b, \boldsymbol{\theta})} = e^{h(s, b, \boldsymbol{\theta})} \nabla h(s, b, \boldsymbol{\theta})$ を用いると、
 
 $$
 \begin{align*}
@@ -304,9 +304,9 @@ $$
 \end{align*}
 $$
 
-## 回答
+## 解答
 
-方策 $\pi(a|s, \boldsymbol{\theta})$ は、平均 $\mu(s, \boldsymbol{\theta}_\mu)$ と標準偏差 $\sigma(s, \boldsymbol{\theta}_\sigma)$ を持つ正規分布として定義される。
+方策 $\pi(a|s, \boldsymbol{\theta})$ は、平均 $\mu(s, \boldsymbol{\theta_\mu})$ と標準偏差 $\sigma(s, \boldsymbol{\theta_\sigma})$ を持つ正規分布として定義される。
 
 $$
 \begin{align*}
@@ -328,7 +328,19 @@ $$
 \end{align*}
 $$
 
-ここで、平均は $\mu(s, \boldsymbol{\theta}) = \boldsymbol{\theta}_\mu^T \mathbf{x}_\mu(s)$ とパラメータ化されているため、その勾配は $\nabla \mu(s, \boldsymbol{\theta}) = \mathbf{x}_\mu(s)$ となる。これを代入すると、
+ここで、平均は
+
+$$
+\mu(s, \boldsymbol{\theta}) = \boldsymbol{\theta_\mu}^T \mathbf{x}_\mu(s)
+$$
+
+とパラメータ化されているため、その勾配は
+
+$$
+\nabla \mu(s, \boldsymbol{\theta}) = \mathbf{x}_\mu(s)
+$$
+
+となる。これを代入すると、
 
 $$
 \nabla \pi(a|s, \boldsymbol{\theta}_\mu) = \pi(a|s, \boldsymbol{\theta}) \cdot \frac{(a - \mu(s, \boldsymbol{\theta}))}{\sigma(s, \boldsymbol{\theta})^2} \cdot \mathbf{x}_\mu(s)
@@ -348,23 +360,43 @@ $$
 
 $$
 \begin{align*}
-\nabla \pi(a|s, \boldsymbol{\theta}_\sigma) &= \nabla \left( \frac{1}{\sqrt{2 \pi} \sigma(s, \boldsymbol{\theta})} \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \bold{\theta})^2} \right) \right) \\
-&= \nabla \left( \frac{1}{\sqrt{2 \pi} \sigma(s, \boldsymbol{\theta})} \right) \cdot \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \\
-&\quad + \frac{1}{\sqrt{2 \pi} \sigma(s, \boldsymbol{\theta})} \cdot \nabla \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \\
-&= \frac{1}{\sqrt{2 \pi}} \cdot \nabla \left( \frac{1}{\sigma(s, \boldsymbol{\theta})} \right) \cdot \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \\
+\nabla \pi(a|s, \boldsymbol{\theta}_\sigma) &= \nabla \left( \frac{1}{\sqrt{2 \pi} \sigma(s, \boldsymbol{\theta})} \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \right) \\
+&= \nabla \left( \frac{1}{\sqrt{2 \pi} \sigma(s, \boldsymbol{\theta})} \right) \cdot \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) + \frac{1}{\sqrt{2 \pi} \sigma(s, \boldsymbol{\theta})} \cdot \nabla \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \\
+\end{align*}
+$$
+
+$$
+\begin{align*}
+\quad &= \frac{1}{\sqrt{2 \pi}} \cdot \nabla \left( \frac{1}{\sigma(s, \boldsymbol{\theta})} \right) \cdot \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \\
 &\quad + \frac{1}{\sqrt{2 \pi} \sigma(s, \boldsymbol{\theta})} \cdot \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \cdot \nabla \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \\
 &= \frac{1}{\sqrt{2 \pi}} \cdot \left( -\frac{1}{\sigma(s, \boldsymbol{\theta})^2} \right) \cdot \nabla \sigma(s, \boldsymbol{\theta}) \cdot \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \\
 &\quad + \frac{1}{\sqrt{2 \pi} \sigma(s, \boldsymbol{\theta})} \cdot \exp \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2 \sigma(s, \boldsymbol{\theta})^2} \right) \cdot \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2} \right) \cdot \nabla \left( \frac{1}{\sigma(s, \boldsymbol{\theta})^2} \right) \\
-&= \pi(a|s, \boldsymbol{\theta}) \cdot \left( -\frac{1}{\sigma(s, \boldsymbol{\theta})} \right) \cdot \nabla \sigma(s, \boldsymbol{\theta}) \\
+\end{align*}
+$$
+
+$$
+\begin{align*}
+\quad &= \pi(a|s, \boldsymbol{\theta}) \cdot \left( -\frac{1}{\sigma(s, \boldsymbol{\theta})} \right) \cdot \nabla \sigma(s, \boldsymbol{\theta}) \\
 &\quad + \pi(a|s, \boldsymbol{\theta}) \cdot \left( -\frac{(a - \mu(s, \boldsymbol{\theta}))^2}{2} \right) \cdot \left( -\frac{2}{\sigma(s, \boldsymbol{\theta})^3} \right) \cdot \nabla \sigma(s, \boldsymbol{\theta}) \\
-&= \pi(a|s, \boldsymbol{\theta}) \cdot \left( -\frac{1}{\sigma(s, \boldsymbol{\theta})} \cdot \nabla \sigma(s, \boldsymbol{\theta}) \right) \\
-&\quad + \pi(a|s, \boldsymbol{\theta}) \cdot \left( \frac{(a - \mu(s, \boldsymbol{\theta}))^2}{\sigma(s, \boldsymbol{\theta})^3} \cdot \nabla \sigma(s, \boldsymbol{\theta}) \right) \\
+&= \pi(a|s, \boldsymbol{\theta}) \cdot \left( -\frac{1}{\sigma(s, \boldsymbol{\theta})} \cdot \nabla \sigma(s, \boldsymbol{\theta}) \right) + \pi(a|s, \boldsymbol{\theta}) \cdot \left( \frac{(a - \mu(s, \boldsymbol{\theta}))^2}{\sigma(s, \boldsymbol{\theta})^3} \cdot \nabla \sigma(s, \boldsymbol{\theta}) \right) \\
 &= \pi(a|s, \boldsymbol{\theta}) \cdot \left( -\frac{1}{\sigma(s, \boldsymbol{\theta})} + \frac{(a - \mu(s, \boldsymbol{\theta}))^2}{\sigma(s, \boldsymbol{\theta})^3} \right) \cdot \nabla \sigma(s, \boldsymbol{\theta}) \\
 &= \pi(a|s, \boldsymbol{\theta}) \cdot \left( \frac{(a - \mu(s, \boldsymbol{\theta}))^2 - \sigma(s, \boldsymbol{\theta})^2}{\sigma(s, \boldsymbol{\theta})^3} \right) \cdot \nabla \sigma(s, \boldsymbol{\theta})
 \end{align*}
 $$
 
-ここで、標準偏差は $\sigma(s, \boldsymbol{\theta}) = \exp(\boldsymbol{\theta}_\sigma^T \mathbf{x}_\sigma(s))$ とパラメータ化されているため、その勾配は $\nabla \sigma(s, \boldsymbol{\theta}) = \sigma(s, \boldsymbol{\theta}) \mathbf{x}_\sigma(s)$ となる。これを代入すると、
+ここで、標準偏差は
+
+$$
+\sigma(s, \boldsymbol{\theta}) = \exp(\boldsymbol{\theta_\sigma}^T \mathbf{x}_\sigma(s))
+$$
+
+とパラメータ化されているため、その勾配は
+
+$$
+\nabla \sigma(s, \boldsymbol{\theta}) = \sigma(s, \boldsymbol{\theta}) \mathbf{x}_\sigma(s)
+$$
+
+となる。これを代入すると、
 
 $$
 \begin{align*}
@@ -399,27 +431,29 @@ $$
 h(s, 1, \boldsymbol{\theta}) - h(s, 0, \boldsymbol{\theta}) = \boldsymbol{\theta}^\top \mathbf{x}(s)
 $$
 
-であると仮定する。ただし、$\boldsymbol{\theta}$ はユニットの重みベクトルである。
+であると仮定する。ただし、 $\boldsymbol{\theta}$ はユニットの重みベクトルである。
 
   (a) 行動優先度を方策に変換するためにソフトマックス分布 (13.2) が使用される場合、
+
 $$
 \begin{align*}
 P_t &= \pi(1 \mid S_t, \boldsymbol{\theta}_t)  \\
 &= 1 / (1 + \exp(-\boldsymbol{\theta}_t^\top \mathbf{x}(S_t))), \quad （ロジスティック関数）
 \end{align*}
 $$
+
   であることを示せ。
 
   (b) 収益 $G_t$ を受け取った際の $\boldsymbol{\theta_t}$ から $\boldsymbol{\theta_{t+1}}$ へのモンテカルロREINFORCE更新はどのようになるか？
 
-  (c) ベルヌーイ・ロジスティック・ユニットの適格度ベクトル $r \ln \pi(a|s, \boldsymbol{\theta})$ を、勾配を計算することによって、 $a$、$\mathbf{x}(s)$、および $\pi(a|s, \boldsymbol{\theta})$ を用いて表せ。
+  (c) ベルヌーイ・ロジスティック・ユニットの適格度ベクトル $r \ln \pi(a|s, \boldsymbol{\theta})$ を、勾配を計算することによって、 $a$、 $\mathbf{x}(s)$ 、および $\pi(a|s, \boldsymbol{\theta})$ を用いて表せ。
 
 ヒント:
 
 それぞれの行動について、最初に $P = \pi(1|s, \boldsymbol{\theta})$ に関して対数の導関数を計算し、2つの結果を $a$ と $P_t$ に依存する1つの式にまとめよ。
 そして、ロジスティック関数 $f(x)$ の微分が $f(x)(1 - f(x))$ であることに注意しつつ、連鎖律を適用せよ。
 
-## 回答
+## 解答
 
 ### (a)
 
